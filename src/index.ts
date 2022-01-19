@@ -112,10 +112,6 @@ const getNextGuess = (gameState: GameState): string => {
       for (let i = 0; i < guess.letters.length; i++) {
         const letter = guess.letters[i];
 
-        if (option === 'booby') {
-          console.log('optionWithReplacements:', optionWithBlanks);
-        }
-
         if (
           letter.evaluation === 'absent' &&
           optionWithBlanks.includes(letter.letter)
