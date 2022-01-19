@@ -36,6 +36,18 @@ interface GameState {
 }
 
 /**
+ * Replaces a character in a string at a specific index.
+ * Borrowed from https://stackoverflow.com/a/1431113/1063392
+ */
+const replaceAt = (str: string, index: number, replacement: string): string => {
+  return (
+    str.substring(0, index) +
+    replacement +
+    str.substring(index + replacement.length)
+  );
+};
+
+/**
  * Gets the next best guess, based on the current
  * state of the game board
  */
@@ -57,6 +69,13 @@ const getNextGuess = (gameState: GameState): string => {
     option = option.toLowerCase();
 
     for (const guess of gameState.guesses) {
+      // This string start out exactly equal to `option`, but we'll blank out
+      // any correct or partially correct letters. (i.e. "hello" --> "h__lo").
+      // This allows us to test against this word using letters we know
+      // _don't_ exist in the word without eliminating words in which the
+      // letters appears more than once.
+      let optionWithBlanks = option;
+
       for (let i = 0; i < guess.letters.length; i++) {
         const letter = guess.letters[i];
 
@@ -83,9 +102,24 @@ const getNextGuess = (gameState: GameState): string => {
           continue wordLoop;
         }
 
-        // Ignore this option if a previous guess has eliminated
-        // a letter that appears in this option
-        if (letter.evaluation === 'absent' && option.includes(letter.letter)) {
+        if (letter.evaluation !== 'absent') {
+          optionWithBlanks = replaceAt(optionWithBlanks, i, '_');
+        }
+      }
+
+      // Ignore this option if a this guess has eliminated
+      // a letter that appears in this option
+      for (let i = 0; i < guess.letters.length; i++) {
+        const letter = guess.letters[i];
+
+        if (option === 'booby') {
+          console.log('optionWithReplacements:', optionWithBlanks);
+        }
+
+        if (
+          letter.evaluation === 'absent' &&
+          optionWithBlanks.includes(letter.letter)
+        ) {
           continue wordLoop;
         }
       }
@@ -234,7 +268,7 @@ const playGame = async () => {
       new KeyboardEvent('keydown', { key: 'Enter' }),
     );
 
-    await asyncTimeout(VARIANT === 'absurdle' ? 100 : 2500);
+    await asyncTimeout(VARIANT === 'absurdle' ? 100 : 2200);
   }
 
   console.log('Solved!');
