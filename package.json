@@ -1,0 +1,13 @@
+{
+  "name": "@nfriend/wordle-solver",
+  "version": "1.0.0",
+  "description": "A bookmarklet that automatically solves the daily Wordle puzzle",
+  "main": "build/index.js",
+  "repository": "git@gitlab.com:nfriend/wordle-solver.git",
+  "author": "Nathan Friend <hello@nathanfriend.io>",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "typescript": "^4.5.4"
+  }
+}
