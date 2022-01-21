@@ -1,0 +1,20 @@
+stages:
+  - tweet
+
+screenshot:
+  stage: tweet
+  image:
+    name: alekzonder/puppeteer:latest
+  variables:
+    TWITTER_APP_KEY: $TWITTER_APP_KEY
+    TWITTER_APP_SECRET: $TWITTER_APP_SECRET
+    TWITTER_ACCESS_TOKEN: $TWITTER_ACCESS_TOKEN
+    TWITTER_ACCESS_SECRET: $TWITTER_ACCESS_SECRET
+  script:
+    - cd twitter-bot
+    - yarn install --frozen-lockfile
+    - yarn run solve
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - twitter-bot/node_modules/

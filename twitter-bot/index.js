@@ -1,4 +1,5 @@
 const puppeteer = require('puppeteer');
+const { TwitterApi } = require('twitter-api-v2');
 
 const asyncTimeout = (timeout) =>
   new Promise((resolve) => setTimeout(() => resolve(), timeout));
@@ -71,9 +72,15 @@ const asyncTimeout = (timeout) =>
     return results.join('\n');
   });
 
-  console.log('shareText:', shareText);
+  console.log(shareText);
 
-  // TODO: Tweet results here
+  const twitterClient = new TwitterApi({
+    appKey: process.env.TWITTER_APP_KEY,
+    appSecret: process.env.TWITTER_APP_SECRET,
+    accessToken: process.env.TWITTER_ACCESS_TOKEN,
+    accessSecret: process.env.TWITTER_ACCESS_SECRET,
+  });
+  await twitterClient.v2.tweet(shareText);
 
   await browser.close();
 })();
