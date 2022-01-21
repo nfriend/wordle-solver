@@ -2,6 +2,10 @@
 
 [![npm
 (scoped)](https://img.shields.io/npm/v/@nfriend/wordle-solver)](https://www.npmjs.com/package/@nfriend/wordle-solver)
+<a href="https://gitlab.com/nfriend/wordle-solver/pipelines"
+  target="_blank"><img
+  src="https://gitlab.com/nfriend/wordle-solver/badges/main/pipeline.svg"
+  alt="Twitter bot status"></a>
 
 A bookmarklet that automatically solves [the daily Wordle
 puzzle](https://www.powerlanguage.co.uk/wordle/).
