@@ -102,13 +102,32 @@ const getNextGuess = (gameState: GameState): string => {
           continue wordLoop;
         }
 
-        if (letter.evaluation !== 'absent') {
+        if (letter.evaluation === 'correct') {
+          // If the current letter is correct, replace the letter with a '_'
+          // in `optionWithBlanks` so that we can test against this letter
+          // negatively in the future.
           optionWithBlanks = replaceAt(optionWithBlanks, i, '_');
+        } else if (letter.evaluation === 'present') {
+          // If the letter is correct, but in the wrong position, blank
+          // out the first occurrence of the letter (if it exists), for the
+          // same reason mentioned above.
+          const indexOfLetter = optionWithBlanks.indexOf(letter.letter);
+          if (indexOfLetter !== -1) {
+            optionWithBlanks = replaceAt(optionWithBlanks, indexOfLetter, '_');
+          }
         }
       }
 
-      // Ignore this option if a this guess has eliminated
-      // a letter that appears in this option
+      // Now, test the option against all the letters we know should _not_ be
+      // in the word. We can't simply compare the "absent" letters against the
+      // original word, since it may be the case that a valid guess includes
+      // multiples of the repeated letter. For example, if the solution was
+      // "party", and we previously guessed "poppy", the second two p's would
+      // be considered "absent". However, we can't eliminate "party" just
+      // because it includes a "p". We get around this by "blanking out" the
+      // correct and partially-correct guesses above, so that by the time we
+      // get to this step, we test against a string like "_arty", avoiding the
+      // false negative scenario described above.
       for (let i = 0; i < guess.letters.length; i++) {
         const letter = guess.letters[i];
 
