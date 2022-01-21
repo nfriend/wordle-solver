@@ -1,6 +1,6 @@
 {
   "name": "@nfriend/wordle-solver",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A bookmarklet that automatically solves the daily Wordle puzzle (and also the Absurdal variant)",
   "main": "build/index.js",
   "repository": "git@gitlab.com:nfriend/wordle-solver.git",
