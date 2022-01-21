@@ -1,7 +1,7 @@
 stages:
   - tweet
 
-screenshot:
+tweet:
   stage: tweet
   image:
     name: alekzonder/puppeteer:latest
