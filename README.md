@@ -11,8 +11,13 @@ It also solves a fun variant:
 
 ## Wordle demo
 
-<img alt="A demo of this script solving a daily Wordle puzzle" src="demo.gif"
-width="701" />
+<img alt="A demo of this script solving a daily Wordle puzzle"
+src="img/wordle-demo.gif" width="701" />
+
+## Absurdal demo
+
+<img alt="A demo of this script solving the Absurdal puzzle"
+src="img/absurdal-demo.gif" width="618" />
 
 ## Usage
 
@@ -26,7 +31,7 @@ javascript:(function(){document.body.appendChild(document.createElement('script'
 ```
 
 <img alt="A screenshot of the 'add new bookmark' dialog in Firefox"
-src="bookmarklet-screenshot.png" width="469">
+src="img/bookmarklet-screenshot.png" width="469">
 
 Then, navigate to [Wordle](https://www.powerlanguage.co.uk/wordle/) or
 [Absurdle](https://qntm.org/files/wordle/index.html) and click your new "Solve
