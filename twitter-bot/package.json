@@ -1,0 +1,13 @@
+{
+  "name": "@nfriend/twitter-bot",
+  "version": "1.0.0",
+  "description": "A project to solve the Wordle puzzle automatically every day",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "solve": "node index.js"
+  },
+  "dependencies": {
+    "puppeteer": "13.1.1"
+  }
+}
