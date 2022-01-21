@@ -19,6 +19,14 @@ src="img/wordle-demo.gif" width="701" />
 <img alt="A demo of this script solving the Absurdal puzzle"
 src="img/absurdal-demo.gif" width="618" />
 
+## Twitter bot
+
+Every morning, [this Twitter bot](https://twitter.com/bot_wordle) uses this
+script to solve the daily Wordle puzzle and posts its results.
+
+Source for the Twitter bot can be seen in
+[`twitter-bot/index.js`](twitter-bot/index.js).
+
 ## Usage
 
 In your browser of choice, create a new toolbar bookmark. Name the bookmark
