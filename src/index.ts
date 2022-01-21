@@ -279,9 +279,20 @@ const playGame = async () => {
       );
       await asyncTimeout(10);
     }
-    objectToDispatch.dispatchEvent(
-      new KeyboardEvent('keydown', { key: 'Enter' }),
-    );
+
+    if (VARIANT === 'absurdle') {
+      const enterButton = Array.from(
+        document.querySelectorAll(
+          'button.absurdle__button',
+        ) as unknown as HTMLButtonElement[],
+      ).find((btn) => btn.innerText.toLowerCase().trim() === 'enter');
+
+      enterButton.click();
+    } else {
+      objectToDispatch.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'Enter' }),
+      );
+    }
 
     await asyncTimeout(VARIANT === 'absurdle' ? 100 : 2200);
   }
