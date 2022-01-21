@@ -6,7 +6,6 @@ const asyncTimeout = (timeout) =>
 
 (async () => {
   const browser = await puppeteer.launch();
-  const context = browser.defaultBrowserContext();
   const page = await browser.newPage();
   await page.emulateTimezone('GMT');
   await page.goto('https://www.powerlanguage.co.uk/wordle/', {
