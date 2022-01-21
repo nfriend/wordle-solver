@@ -10,6 +10,8 @@ tweet:
     TWITTER_APP_SECRET: $TWITTER_APP_SECRET
     TWITTER_ACCESS_TOKEN: $TWITTER_ACCESS_TOKEN
     TWITTER_ACCESS_SECRET: $TWITTER_ACCESS_SECRET
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
   script:
     - cd twitter-bot
     - yarn install --frozen-lockfile
