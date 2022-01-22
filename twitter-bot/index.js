@@ -38,10 +38,8 @@ const asyncTimeout = (timeout) =>
   // Interacting with the clipboard seems challenging/impossible
   // within Puppeteer, so instead we'll just manually generate
   // our own share text.
-  const shareText = await page.evaluate((_) => {
+  const { shareText, guessesText } = await page.evaluate((_) => {
     const gameState = getGameState();
-
-    const results = [];
 
     const guessCount = gameState.guesses.length;
 
@@ -50,9 +48,10 @@ const asyncTimeout = (timeout) =>
     const t = new Date().setHours(0, 0, 0, 0) - s.setHours(0, 0, 0, 0);
     const wordleCount = Math.round(t / 864e5);
 
-    results.push(`Wordle ${wordleCount} ${guessCount}/6`);
-    results.push('');
-    gameState.guesses.forEach((guess) => {
+    const shareTextLines = [`Wordle ${wordleCount} ${guessCount}/6\n`];
+    const guessesTextLines = ['Guesses:\n'];
+
+    gameState.guesses.forEach((guess, index) => {
       const resultLine = guess.letters
         .map((letter) => {
           if (letter.evaluation === 'correct') {
@@ -65,13 +64,29 @@ const asyncTimeout = (timeout) =>
         })
         .join('');
 
-      results.push(resultLine);
+      shareTextLines.push(resultLine);
+
+      const isLastGuess = index === gameState.guesses.length - 1;
+      const guessCount = index + 1;
+      const guessWord = guess.letters
+        .map((l) => l.letter)
+        .join('')
+        .toUpperCase();
+      const correctGuessIndicator = isLastGuess ? ' ✅' : '';
+      guessesTextLines.push(
+        `${guessCount}. ${guessWord}${correctGuessIndicator}`,
+      );
     });
 
-    return results.join('\n');
+    return {
+      shareText: shareTextLines.join('\n'),
+      guessesText: guessesTextLines.join('\n'),
+    };
   });
 
   console.log(shareText);
+  console.log();
+  console.log(guessesText);
 
   const twitterClient = new TwitterApi({
     appKey: process.env.TWITTER_APP_KEY,
