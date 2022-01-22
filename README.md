@@ -5,8 +5,8 @@
 <a href="https://gitlab.com/nfriend/wordle-solver/pipelines"
   target="_blank"><img
   src="https://gitlab.com/nfriend/wordle-solver/badges/main/pipeline.svg"
-  alt="Twitter bot status"></a>
-[![Twitter Follow](https://img.shields.io/twitter/follow/bot_wordle?style=social)](https://twitter.com/bot_wordle)
+  alt="Twitter bot status"></a> [![Twitter
+Follow](https://img.shields.io/twitter/follow/bot_wordle?style=social)](https://twitter.com/bot_wordle)
 
 A bookmarklet that automatically solves [the daily Wordle
 puzzle](https://www.powerlanguage.co.uk/wordle/).
@@ -29,13 +29,12 @@ src="img/absurdal-demo.gif" width="618" />
 Every morning, [this Twitter bot](https://twitter.com/bot_wordle) uses this
 script to solve the daily Wordle puzzle and posts its results.
 
-Source for the Twitter bot can be seen in
-[`twitter-bot/index.js`](twitter-bot/index.js).
+<img alt="A screenshot of a Tweet by @bot_wordle" src="img/tweet.png"
+width="507" />
 
-<a class="twitter-timeline"
-      href="https://twitter.com/bot_wordle"
-      data-tweet-limit="1">
-Tweets by @bot_wordle</a>
+Source for the Twitter bot can be seen in
+[`twitter-bot/index.js`](twitter-bot/index.js). The bot is run inside a GitLab
+scheduled pipeline (see [`.gitlab-ci.yml`](.gitlab-ci.yml)).
 
 ## Usage
 
