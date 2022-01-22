@@ -1,8 +1,5 @@
 # Wordle (and Absurdle) Solver
 
-<img alt="The wordle-bot logo"
-src="img/wordle-bot.png" height="200" align="right"/>
-
 [![npm
 (scoped)](https://img.shields.io/npm/v/@nfriend/wordle-solver)](https://www.npmjs.com/package/@nfriend/wordle-solver)
 <a href="https://gitlab.com/nfriend/wordle-solver/pipelines"
@@ -10,6 +7,9 @@ src="img/wordle-bot.png" height="200" align="right"/>
   src="https://gitlab.com/nfriend/wordle-solver/badges/main/pipeline.svg"
   alt="Twitter bot status"></a> [![Twitter
 Follow](https://img.shields.io/twitter/follow/bot_wordle?style=social)](https://twitter.com/bot_wordle)
+
+<img alt="The wordle-bot logo"
+src="img/wordle-bot.png" height="300" />
 
 A bookmarklet that automatically solves [the daily Wordle
 puzzle](https://www.powerlanguage.co.uk/wordle/).
