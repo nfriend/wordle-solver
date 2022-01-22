@@ -1,7 +1,22 @@
+// Command line parameters (all optional):
+//
+// --date 2022-01-22:  Solve the puzzle for a specific day.
+//                     If not provided, today's puzzle is solved.
+// --headful:          Runs the script in non-headless mode
+// --skip-tweet:       Does not tweet the result
+// --use-local-script: Uses the local (compiled) index.js instead
+//                     of sourcing the script from UNPKG
+//
+// Example usage:
+//
+// yarn solve --date=2021-10-10 --headful --skip-tweet --use-local-script
+
 const puppeteer = require('puppeteer');
 const { TwitterApi } = require('twitter-api-v2');
 const { mockPageDate } = require('./mock-page-date');
 const yargs = require('yargs/yargs');
+const fs = require('fs').promises;
+const path = require('path');
 
 const { hideBin } = require('yargs/helpers');
 const argv = yargs(hideBin(process.argv)).argv;
@@ -10,7 +25,7 @@ const asyncTimeout = (timeout) =>
   new Promise((resolve) => setTimeout(() => resolve(), timeout));
 
 (async () => {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({ headless: !argv.headful });
   const page = await browser.newPage();
 
   if (argv.date) {
@@ -33,15 +48,36 @@ const asyncTimeout = (timeout) =>
 
   await asyncTimeout(500);
 
-  await page.evaluate((_) => {
-    document.body.appendChild(document.createElement('script')).src =
-      'https://unpkg.com/@nfriend/wordle-solver/build/index.js';
-  });
+  if (argv.useLocalScript) {
+    // Useful for debugging locally.
+    // Make sure you've already run `yarn tsc` in the parent
+    // folder, otherwise `build/index.js` won't exist.
+    const scriptCode = await fs.readFile(
+      path.resolve(__dirname, '../build/index.js'),
+      { encoding: 'utf-8' },
+    );
 
-  await new Promise((resolve) => {
+    await page.evaluate((scriptCode) => {
+      const scriptEl = document.createElement('script');
+      scriptEl.appendChild(document.createTextNode(scriptCode));
+      document.body.appendChild(scriptEl);
+    }, scriptCode);
+  } else {
+    // Useful for CI - no need to build src/index.ts first
+    await page.evaluate((_) => {
+      document.body.appendChild(document.createElement('script')).src =
+        'https://unpkg.com/@nfriend/wordle-solver/build/index.js';
+    });
+  }
+
+  const solved = await new Promise((resolve) => {
     page.on('console', (msg) => {
-      if (msg.text().includes('Solved!')) {
-        resolve();
+      const text = msg.text();
+      if (text.includes('Solved!')) {
+        resolve(true);
+      }
+      if (text.includes('Failed!')) {
+        resolve(false);
       }
     });
   });
@@ -49,10 +85,10 @@ const asyncTimeout = (timeout) =>
   // Interacting with the clipboard seems challenging/impossible
   // within Puppeteer, so instead we'll just manually generate
   // our own share text.
-  const { shareText, guessesText } = await page.evaluate((_) => {
+  const { shareText, guessesText } = await page.evaluate((solved) => {
     const gameState = getGameState();
 
-    const guessCount = gameState.guesses.length;
+    const guessCount = solved ? gameState.guesses.length : 'X';
 
     // These three lines are more or less copied from Wordle's source
     const s = new Date('2021-06-19');
@@ -83,7 +119,7 @@ const asyncTimeout = (timeout) =>
         .map((l) => l.letter)
         .join('')
         .toUpperCase();
-      const correctGuessIndicator = isLastGuess ? ' ✅' : '';
+      const correctGuessIndicator = solved && isLastGuess ? ' ✅' : '';
       guessesTextLines.push(
         `${guessCount}. ${guessWord}${correctGuessIndicator}`,
       );
@@ -93,19 +129,21 @@ const asyncTimeout = (timeout) =>
       shareText: shareTextLines.join('\n'),
       guessesText: guessesTextLines.join('\n'),
     };
-  });
+  }, solved);
 
   console.log(shareText);
   console.log();
   console.log(guessesText);
 
-  const twitterClient = new TwitterApi({
-    appKey: process.env.TWITTER_APP_KEY,
-    appSecret: process.env.TWITTER_APP_SECRET,
-    accessToken: process.env.TWITTER_ACCESS_TOKEN,
-    accessSecret: process.env.TWITTER_ACCESS_SECRET,
-  });
-  await twitterClient.v2.tweet(shareText);
+  if (!argv.skipTweet) {
+    const twitterClient = new TwitterApi({
+      appKey: process.env.TWITTER_APP_KEY,
+      appSecret: process.env.TWITTER_APP_SECRET,
+      accessToken: process.env.TWITTER_ACCESS_TOKEN,
+      accessSecret: process.env.TWITTER_ACCESS_SECRET,
+    });
+    await twitterClient.v2.tweet(shareText);
+  }
 
   await browser.close();
 })();

@@ -256,7 +256,7 @@ const playGame = async () => {
   const asyncTimeout = (timeout: number) =>
     new Promise<void>((resolve) => setTimeout(() => resolve(), timeout));
 
-  while (true) {
+  for (let i = 0; i < 6; i++) {
     const gameState = getGameState();
 
     const lastGuess = gameState.guesses[gameState.guesses.length - 1];
@@ -265,7 +265,8 @@ const playGame = async () => {
       lastGuess &&
       lastGuess.letters.every((l) => l.evaluation === 'correct')
     ) {
-      break;
+      console.log('Solved!');
+      return;
     }
 
     const guess = getNextGuess(gameState);
@@ -297,7 +298,7 @@ const playGame = async () => {
     await asyncTimeout(VARIANT === 'absurdle' ? 100 : 2200);
   }
 
-  console.log('Solved!');
+  console.log('Failed!');
 };
 
 playGame();
