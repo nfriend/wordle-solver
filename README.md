@@ -1,5 +1,8 @@
 # Wordle (and Absurdle) Solver
 
+<img alt="The wordle-bot logo"
+src="img/wordle-bot.png" height="200" align="right"/>
+
 [![npm
 (scoped)](https://img.shields.io/npm/v/@nfriend/wordle-solver)](https://www.npmjs.com/package/@nfriend/wordle-solver)
 <a href="https://gitlab.com/nfriend/wordle-solver/pipelines"
