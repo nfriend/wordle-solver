@@ -8,10 +8,9 @@
   alt="Twitter bot status"></a> [![Twitter
 Follow](https://img.shields.io/twitter/follow/bot_wordle?style=social)](https://twitter.com/bot_wordle)
 
-<img alt="The wordle-bot logo"
-src="img/wordle-bot.png" height="300" />
+<img alt="The wordle-bot logo" src="img/wordle-bot.png" height="300" />
 
-A bookmarklet that automatically solves [the daily Wordle
+A bookmarklet and Twitter bot that automatically solves [the daily Wordle
 puzzle](https://www.powerlanguage.co.uk/wordle/).
 
 It also solves a fun variant:
