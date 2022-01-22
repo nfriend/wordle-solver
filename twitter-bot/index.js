@@ -1,5 +1,10 @@
 const puppeteer = require('puppeteer');
 const { TwitterApi } = require('twitter-api-v2');
+const { mockPageDate } = require('./mock-page-date');
+const yargs = require('yargs/yargs');
+
+const { hideBin } = require('yargs/helpers');
+const argv = yargs(hideBin(process.argv)).argv;
 
 const asyncTimeout = (timeout) =>
   new Promise((resolve) => setTimeout(() => resolve(), timeout));
@@ -7,7 +12,13 @@ const asyncTimeout = (timeout) =>
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
+
+  if (argv.date) {
+    await mockPageDate(page, new Date(argv.date).getTime());
+  }
+
   await page.emulateTimezone('GMT');
+
   await page.goto('https://www.powerlanguage.co.uk/wordle/', {
     waitUntil: 'networkidle2',
   });
