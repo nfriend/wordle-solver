@@ -256,7 +256,7 @@ const playGame = async () => {
   const asyncTimeout = (timeout: number) =>
     new Promise<void>((resolve) => setTimeout(() => resolve(), timeout));
 
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < 7; i++) {
     const gameState = getGameState();
 
     const lastGuess = gameState.guesses[gameState.guesses.length - 1];
