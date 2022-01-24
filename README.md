@@ -34,6 +34,8 @@ script to solve the daily Wordle puzzle and posts its results.
 <img alt="A screenshot of a Tweet by @bot_wordle" src="img/tweet.png"
 width="507" />
 
+The tweet will include a link to a screenshot of the full solution.
+
 Source for the Twitter bot can be seen in
 [`twitter-bot/index.js`](twitter-bot/index.js). The bot is run inside a GitLab
 scheduled pipeline (see [`.gitlab-ci.yml`](.gitlab-ci.yml)).
