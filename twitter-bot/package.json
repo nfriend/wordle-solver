@@ -9,7 +9,9 @@
     "backfill": "node backfill-tweets.js"
   },
   "dependencies": {
+    "imgur": "2.1.3",
     "puppeteer": "13.1.1",
+    "tslib": "2.3.1",
     "twitter-api-v2": "1.9.1",
     "yargs": "17.3.1"
   }
