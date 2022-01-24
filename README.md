@@ -80,6 +80,19 @@ changed.
 To run `build/index.js`, copy its contents and paste into the developer tools of
 a Wordle or Absurdal page.
 
+#### Releasing a new version
+
+To release a new version of the bookmarklet:
+
+1. Run `yarn tsc` to ensure `build/index.js` is up to date
+1. Run `yarn version --[patch|minor|major]`
+1. Run `npm publish`
+1. Run `git push`
+1. Run `git push --tags`
+1. Create a new [release on
+   GitLab](https://gitlab.com/nfriend/wordle-solver/-/releases) using the tag
+   created by `yarn` above
+
 ### Twitter bot
 
 After running the steps in the **Bookmarklet** section above, navigate to the
