@@ -4,7 +4,7 @@ stages:
 tweet:
   stage: tweet
   image:
-    name: nathanfriend/docker-puppeteer:node-16
+    name: buildkite/puppeteer:latest
   variables:
     TWITTER_APP_KEY: $TWITTER_APP_KEY
     TWITTER_APP_SECRET: $TWITTER_APP_SECRET
