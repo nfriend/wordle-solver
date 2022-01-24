@@ -13,7 +13,7 @@ tweet:
     IMGUR_CLIENT_ID: $IMGUR_CLIENT_ID
     IMGUR_CLIENT_SECRET: $IMGUR_CLIENT_SECRET
   rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "trigger")
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "api" || $CI_PIPELINE_SOURCE == "web")
   script:
     - cd twitter-bot
     - yarn install --frozen-lockfile
