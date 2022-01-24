@@ -41,7 +41,10 @@ const clickModalCloseButton = async (page) => {
 };
 
 (async () => {
-  const browser = await puppeteer.launch({ headless: !argv.headful });
+  const browser = await puppeteer.launch({
+    headless: !argv.headful,
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+  });
   const page = await browser.newPage();
 
   await page.setViewport({
