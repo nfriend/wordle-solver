@@ -67,6 +67,8 @@ https://unpkg.com/@nfriend/wordle-solver/build/index.js.
 
 ## Developing
 
+### Bookmarklet
+
 Clone this repository, and in the root directory, run:
 
 - `yarn`
@@ -77,3 +79,17 @@ changed.
 
 To run `build/index.js`, copy its contents and paste into the developer tools of
 a Wordle or Absurdal page.
+
+### Twitter bot
+
+After running the steps in the **Bookmarklet** section above, navigate to the
+`twitter-bot` directory and run:
+
+- `yarn`
+- `yarn solve --date=2021-10-10 --headful --skip-tweet --skip-image-upload --use-local-script`
+
+See the comments in [`twitter-bot/index.js`](twitter-bot/index.js) for an
+explanation of each command line parameter.
+
+The API keys/secrets for both Twitter and Imgur are provided through environment
+variables.
