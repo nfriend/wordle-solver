@@ -4,7 +4,7 @@ stages:
 tweet:
   stage: tweet
   image:
-    name: alekzonder/puppeteer:latest
+    name: nathanfriend/docker-puppeteer:node-16
   variables:
     TWITTER_APP_KEY: $TWITTER_APP_KEY
     TWITTER_APP_SECRET: $TWITTER_APP_SECRET
@@ -13,7 +13,7 @@ tweet:
     IMGUR_CLIENT_ID: $IMGUR_CLIENT_ID
     IMGUR_CLIENT_SECRET: $IMGUR_CLIENT_SECRET
   rules:
-    - if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "trigger")
   script:
     - cd twitter-bot
     - yarn install --frozen-lockfile
