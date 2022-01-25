@@ -18,6 +18,8 @@ tweet:
     - cd twitter-bot
     - yarn install --frozen-lockfile
     - yarn run solve
+  timeout: 5 minutes
+  retry: 2
   cache:
     key: ${CI_COMMIT_REF_SLUG}
     paths:
