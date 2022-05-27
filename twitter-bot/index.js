@@ -58,7 +58,7 @@ const clickModalCloseButton = async (page) => {
 
   await page.emulateTimezone('GMT');
 
-  await page.goto('https://www.powerlanguage.co.uk/wordle/', {
+  await page.goto('https://www.nytimes.com/games/wordle/index.html', {
     waitUntil: 'networkidle2',
   });
 
