@@ -175,15 +175,17 @@ const getNextGuess = (gameState: GameState): string => {
  */
 const getWordleGameState = (): GameState => {
   const gameRows = Array.from(
-    document.querySelector('game-app').shadowRoot.querySelectorAll('game-row'),
+    document.querySelectorAll('div[class^="Row-module_row"]'),
   );
 
   const guesses: WordGuess[] = gameRows.map((row) => {
-    const gameTiles = Array.from(row.shadowRoot.querySelectorAll('game-tile'));
+    const gameTiles = Array.from(
+      row.querySelectorAll('div[class^="Tile-module_tile"]'),
+    );
     const letters: LetterGuess[] = gameTiles.map((tile) => {
       return {
-        letter: tile.getAttribute('letter')?.toLowerCase(),
-        evaluation: tile.getAttribute('evaluation') as GuessEvaluation,
+        letter: tile.innerHTML.toLowerCase(),
+        evaluation: tile.getAttribute('data-state') as GuessEvaluation,
       };
     });
 
