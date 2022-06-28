@@ -1,6 +1,6 @@
 {
   "name": "@nfriend/wordle-solver",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "A bookmarklet and Twitter bot that automatically solves the daily Wordle puzzle (and also the Absurdal variant)",
   "main": "build/index.js",
   "repository": "git@gitlab.com:nfriend/wordle-solver.git",
