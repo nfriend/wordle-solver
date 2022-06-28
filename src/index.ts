@@ -20,7 +20,7 @@ const LETTER_FREQUENCIES = (() => {
 
 const VARIANT = window.location.host === 'qntm.org' ? 'absurdle' : 'wordle';
 
-type GuessEvaluation = 'correct' | 'present' | 'absent';
+type GuessEvaluation = 'correct' | 'present' | 'absent' | 'empty';
 
 interface LetterGuess {
   letter: string;
@@ -194,7 +194,7 @@ const getWordleGameState = (): GameState => {
 
   // Filter out any guesses that don't have evaluations for every letter
   const nonEmptyGuesses = guesses.filter((guess) =>
-    guess.letters.every((l) => l.evaluation),
+    guess.letters.every((l) => l.evaluation && l.evaluation !== 'empty'),
   );
 
   return { guesses: nonEmptyGuesses };
