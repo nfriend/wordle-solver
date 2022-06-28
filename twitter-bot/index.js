@@ -31,9 +31,7 @@ const asyncTimeout = (timeout) =>
 const clickModalCloseButton = async (page) => {
   await page.evaluate((_) => {
     document
-      .querySelector('game-app')
-      .shadowRoot.querySelector('game-modal')
-      .shadowRoot.querySelector('game-icon[icon="close"]')
+      .querySelector('#wordle-app-game div[class^="Modal-module_closeIcon"]')
       .click();
   });
 
