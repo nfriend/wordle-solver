@@ -30,9 +30,24 @@ const asyncTimeout = (timeout) =>
 
 const clickModalCloseButton = async (page) => {
   await page.evaluate((_) => {
-    document
-      .querySelector('#wordle-app-game div[class^="Modal-module_modalOverlay"]')
-      .click();
+    // From https://stackoverflow.com/a/54316368
+    let mouseClickEvents = ['mousedown', 'click', 'mouseup'];
+    let simulateMouseClick = (element) => {
+      mouseClickEvents.forEach((mouseEventType) =>
+        element.dispatchEvent(
+          new MouseEvent(mouseEventType, {
+            view: window,
+            bubbles: true,
+            cancelable: true,
+            buttons: 1,
+          }),
+        ),
+      );
+    };
+
+    simulateMouseClick(
+      document.querySelector('button[class^="Modal-module_closeIcon"]>svg'),
+    );
   });
 
   await asyncTimeout(500);
