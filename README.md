@@ -11,7 +11,7 @@ Follow](https://img.shields.io/twitter/follow/bot_wordle?style=social)](https://
 <img alt="The wordle-bot logo" src="img/wordle-bot.png" height="300" />
 
 A bookmarklet and Twitter bot that automatically solves [the daily Wordle
-puzzle](https://www.powerlanguage.co.uk/wordle/).
+puzzle](https://www.nytimes.com/games/wordle/index.html).
 
 It also solves a fun variant:
 [Absurdle](https://qntm.org/files/wordle/index.html).
@@ -54,7 +54,7 @@ javascript:(function(){document.body.appendChild(document.createElement('script'
 <img alt="A screenshot of the 'add new bookmark' dialog in Firefox"
 src="img/bookmarklet-screenshot.png" width="469">
 
-Then, navigate to [Wordle](https://www.powerlanguage.co.uk/wordle/) or
+Then, navigate to [Wordle](https://www.nytimes.com/games/wordle/index.html) or
 [Absurdle](https://qntm.org/files/wordle/index.html) and click your new "Solve
 Wordle" bookmarklet!
 
