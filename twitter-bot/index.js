@@ -75,6 +75,10 @@ const clickModalCloseButton = async (page) => {
     waitUntil: 'networkidle2',
   });
 
+  await page.click('[data-testid="Play"]');
+
+  await asyncTimeout(500);
+
   await clickModalCloseButton(page);
 
   if (argv.useLocalScript) {
