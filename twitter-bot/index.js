@@ -75,6 +75,12 @@ const clickModalCloseButton = async (page) => {
     waitUntil: 'networkidle2',
   });
 
+  await asyncTimeout(500);
+
+  if ((await page.$('.purr-blocker-card__button')) !== null) {
+    await page.click('.purr-blocker-card__button');
+  }
+
   await page.click('[data-testid="Play"]');
 
   await asyncTimeout(500);
@@ -113,6 +119,10 @@ const clickModalCloseButton = async (page) => {
         resolve(false);
       }
     });
+  });
+
+  await page.evaluate((_) => {
+    document.querySelectorAll('.ad').forEach((el) => el.remove());
   });
 
   // Interacting with the clipboard seems challenging/impossible
